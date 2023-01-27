@@ -1,7 +1,23 @@
 import React, { Component } from "react";
 import Student from "./Student";
 class ListStudent extends Component {
+  actionAndToggle = (status, actionName, selectedStudent)=>{
+    this.props.actionAndToggle(status, actionName, selectedStudent);
+  }
   render() {
+    let {students} = this.props;
+    let elementListStudent = students.map((st, index)=>{
+      return (
+        <Student
+          key={st.studentId}
+          actionAndToggle={this.actionAndToggle}
+          stInfo={st}
+          stt={index}
+          handleView={(this, this.props.handleView)}
+          addNewStudent={(this, this.props.addNewStudent)}
+        ></Student>
+      ); 
+    })
     return (
       <div className="card-body">
         <h3 className="card-title">Danh sách sinh viên</h3>
@@ -18,9 +34,7 @@ class ListStudent extends Component {
               </tr>
             </thead>
             <tbody>
-              <Student></Student>
-              <Student></Student>
-              <Student></Student>
+              {elementListStudent}
             </tbody>
           </table>
         </div>
